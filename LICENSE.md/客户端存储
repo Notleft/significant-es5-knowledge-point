@@ -1,0 +1,68 @@
+web存储有两个，一个是localStorage,一个是sessionStorage,下面分别来总结一下共同点和不同点，以及各自的知识，
+web存储会把存的数据默认转化为字符串，所以取得时候记得要转换
+
+localStorage.x=10 //当存储一个数字的时候，会把它转换为一个字符串
+var x=parseInt(localStorage.x) //但是获取该值得时候别玩了将其转换伪数字类型
+
+这两个对象都有村粗有效期和作用域
+两个的作用域都是限定在文档源级别的，文档源是通过协议，主机名以及端口三者来确定的
+
+共同的API
+setItem() 实现数据存储（名和值）
+getItem() 获取对应的值 （名字）
+removeItem() 删除对应的值(名字)
+clear() 删除所有存储的数据(不用传值)
+具有length属性和key()方法
+栗子
+localStorage.setItem("x",1);//存储一个数值
+localStorage.getItem("x");//获取数值
+//枚举所有存储的名字/值
+for(var i=0;i<localStorage.length;i++){
+var name=localStorage.key(i);
+var value=localStorage.getItem(name)
+console.log(value)
+;}
+
+//删除
+localStorage.removeItem("x");
+全部删除
+localStorage.clear();
+
+当一个对象的属性值已经设置了，用简单的对象设置方法是不行的，因为它只是获取并设置了副本，所以的用
+localStorage.getItem("名字").属性名=...来设置
+
+
+//用cookie和IE userData来实现存储API
+var memory=window.localStorage || (window.UserDataStorage && new UserDataStorage()) || new cookieStorage();
+var username=memory.getItem("username");
+
+//存储事件
+localStorage和sessionStorage 上的数据发生改变，数据改变的窗口对象没变化，与它有关系的变化了
+
+//为存储事件注册处理程序可以通过addEventListener()方法或者attachEvent()
+存储事件相关的事件对象的五个非常重要的属性（ie不支持）
+1,key
+2,newValue
+3,oldValue
+4,storageArea
+5,url 触发该存储变化脚本所在文档的URL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
